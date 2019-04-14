@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">MyApp2</string>
+    <string name="app_name">MyApp2.1</string>
+    <string name="txt_view_String">Estatus del Alumno</string>
+    <string name="txt_nota1_string">Ingrese primer nota</string>
+    <string name="txt_nota2_string">Ingrese segunda nota</string>
+    <string name="txt_nota3_string">Ingrese tercer nota</string>
+    <string name="button">Promedio</string>
 </resources>
