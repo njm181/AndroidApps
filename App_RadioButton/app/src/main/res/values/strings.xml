@@ -4,6 +4,8 @@
     <string name="txt_valor2">Ingresa segundo valor</string>
     <string name="rb_sum">Sumar</string>
     <string name="rb_res">Restar</string>
+    <string name="rb_mult">Multiplicar</string>
+    <string name="rb_div">Dividir</string>
     <string name="button">Calcular</string>
     <string name="tv_Result">Resultado</string>
 </resources>
