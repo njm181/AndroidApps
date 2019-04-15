@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //esto asocia el nombre con la edad en orden, posicion 0 nombre con posicion 0 en edad
                 tv1.setText("La edad de "+lv1.getItemAtPosition(position)+" es "+ edades[position]+" años");
             }
         });
