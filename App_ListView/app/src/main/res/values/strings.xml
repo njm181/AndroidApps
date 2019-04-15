@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App_ListView</string>
+    <string name="textView">Selecciona un nombre</string>
+</resources>
