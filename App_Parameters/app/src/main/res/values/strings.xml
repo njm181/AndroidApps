@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">App_Parameters</string>
+    <string name="texto_1">Ingrese nombre</string>
+    <string name="button">Ir</string>
+    <string name="texto_2">Nombre que recibo</string>
+    <string name="button2">Volver</string>
+</resources>
