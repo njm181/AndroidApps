@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App_Internacionalizacion</string>
+    <string name="btn_login">Log in</string>
+    <string name="et_usuario">User</string>
+    <string name="et_password">Password</string>
+    <string name="tv_footer">All Rights Reserved</string>
+</resources>

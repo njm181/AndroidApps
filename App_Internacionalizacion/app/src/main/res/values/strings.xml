@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">App_Internacionalizacion</string>
+    <string name="btn_login">Iniciar Sesión</string>
+    <string name="et_usuario">Usuario</string>
+    <string name="et_password">Contraseña</string>
+    <string name="tv_footer">Todos los derechos reservados</string>
+</resources>
