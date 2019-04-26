@@ -28,14 +28,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(id == R.id.Item1){
             Toast.makeText(this, "Opción 1", Toast.LENGTH_SHORT).show();
+            return true;
         }else if(id == R.id.Item2){
             Toast.makeText(this, "Opción 2", Toast.LENGTH_SHORT).show();
-
+            return true;
         }else if(id == R.id.Item3){
             Toast.makeText(this, "Opción 3", Toast.LENGTH_SHORT).show();
-
+            return true;
+        }else if(id == R.id.compartir){
+            Toast.makeText(this, "Compartir", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(id == R.id.buscar){
+            Toast.makeText(this, "Buscar", Toast.LENGTH_SHORT).show();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }
