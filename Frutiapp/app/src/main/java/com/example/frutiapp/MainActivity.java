@@ -3,6 +3,8 @@ package com.example.frutiapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +66,29 @@ public class MainActivity extends AppCompatActivity {
             //colocar dentro de imageview
             iv_personaje.setImageResource(id);
         }
+
+        //crear objeto de base de datos
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "BD", null, 1);
+        //para poder escribir en la base de datos
+        SQLiteDatabase BD = admin.getWritableDatabase();
+
+        //consulta a la BD
+        Cursor consulta = BD.rawQuery(
+                "select * from puntaje where score = (select max(score) from puntaje)", null);
+
+        //si encontro algun puntaje o no
+        if(consulta.moveToFirst()){//si encontraste algo hace lo siguiente
+            String temp_name = consulta.getString(0);//columna nombre de la tabla
+            String temp_score = consulta.getString(1);//columna score
+            //agregar los valores al textview
+            tv_bestScore.setText("Record: "+temp_score+" de "+temp_name);
+            //cerrar conexion
+            BD.close();
+        }else{
+            BD.close();
+        }
+
+
 
         //pista de audio inicial
         //guardo mi cancion dentro del objeto mediaPlayer
