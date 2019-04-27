@@ -78,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         //si encontro algun puntaje o no
         if(consulta.moveToFirst()){//si encontraste algo hace lo siguiente
-            String temp_name = consulta.getString(0);//columna nombre de la tabla
+            String temp_nombre = consulta.getString(0);//columna nombre de la tabla
             String temp_score = consulta.getString(1);//columna score
             //agregar los valores al textview
-            tv_bestScore.setText("Record: "+temp_score+" de "+temp_name);
+            tv_bestScore.setText("Record: "+temp_score+" de "+temp_nombre);
             //cerrar conexion
             BD.close();
         }else{

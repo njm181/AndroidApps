@@ -2,9 +2,13 @@ package com.example.frutiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +64,64 @@ public class Nivel1 extends AppCompatActivity {
         NumAleatorio();
     }
 
+    //metodo para asignar funcion al boton comprobar
+    public void Comprobar(View view){
+        String respuesta = et_respuesta.getText().toString();
+
+        if(!respuesta.equals("")){
+
+            int respuesta_jugador = Integer.parseInt(respuesta);
+            //validar que sea respuesta lo que introduzca
+            if(resultado == respuesta_jugador){
+                mp_great.start();
+                score++;
+                tv_score.setText("Score: "+score);
+                et_respuesta.setText("");
+
+                //uso de la base de datos por que aumenta el score
+                BaseDeDatos();
+
+            }else{
+
+                mp_bad.start();
+                vidas--;
+                //uso de la base de datos por que pierde y debe mostrar score
+                BaseDeDatos();
+
+                switch (vidas){
+                    case 3:
+                        iv_vidas.setImageResource(R.drawable.tresvidas);
+                        break;
+                    case 2:
+                        Toast.makeText(this, "Te quedan 2 manzanas", Toast.LENGTH_SHORT).show();
+                        iv_vidas.setImageResource(R.drawable.dosvidas);//cambiar imagen
+                        break;
+                    case 1:
+                        Toast.makeText(this, "Te quedan 1 manzanas", Toast.LENGTH_SHORT).show();
+                        iv_vidas.setImageResource(R.drawable.unavida);//cambiar imagen
+                        break;
+                    case 0:
+                        Toast.makeText(this, "Has perdido todas tus manzanas", Toast.LENGTH_SHORT).show();
+                        //volver al main
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        //detener audio
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        break;
+                }
+                //limpiar campo
+                et_respuesta.setText("");
+            }
+            //independientemente de la respuesta bien o mal actualiza las imagenes con numeros
+            NumAleatorio();
+        }else{
+            Toast.makeText(this, "Escribe tu respuesta", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     //generar numeros aleatorios
     public void NumAleatorio(){//no corresponde a ningun boton por eso no recibe View
 
@@ -104,5 +166,48 @@ public class Nivel1 extends AppCompatActivity {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
+    }
+
+    public void BaseDeDatos(){
+        //para hacer CRUD a la BD
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "BD", null, 1);
+        SQLiteDatabase BD = admin.getWritableDatabase();//apertura en modo lectura y escritura de la Bd
+
+        //consulta para ver si hay registros
+        Cursor consulta = BD.rawQuery("select * from puntaje where score = (select max(score)from puntaje)", null);
+        if(consulta.moveToFirst()){
+
+           String temp_nombre = consulta.getString(0);
+           String temp_score = consulta.getString(1);
+
+           int bestScore = Integer.parseInt(temp_score);
+           //que sea el score mas alto
+           if(score > bestScore){
+               ContentValues modificacion = new ContentValues();
+               modificacion.put("nombre",nombre_jugador);
+               modificacion.put("score",score);
+
+               //para actualizar la BD
+               BD.update("puntaje", modificacion, "score="+bestScore, null);
+           }
+            BD.close();
+
+        }else{
+
+            ContentValues insertar = new ContentValues();
+
+            insertar.put("nombre", nombre_jugador);
+            insertar.put("score", score);
+
+            BD.insert("puntaje", null, insertar);
+            BD.close();
+
+        }
+    }
+
+    //controlar el boton back
+    @Override
+    public void onBackPressed(){
+
     }
 }
